@@ -11,3 +11,5 @@ $meta['usecache']         = array('onoff');
 $meta['usestyles']        = array('string');
 $meta['qrcodesize']       = array('string', '_pattern' => '/^(|\d+x\d+)$/');
 $meta['showexportbutton'] = array('onoff');
+$meta['removelinkspattern'] = array('string');
+$meta['removelinkscomment'] = array('string');

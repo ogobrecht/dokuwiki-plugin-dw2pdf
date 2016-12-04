@@ -11,3 +11,5 @@ $conf['usecache']         = 1;
 $conf['usestyles']        = '';
 $conf['qrcodesize']       = '120x120';
 $conf['showexportbutton'] = 1;
+$conf['removelinkspattern'] = '';
+$conf['removelinkscomment'] = ' (link to secured host removed)';

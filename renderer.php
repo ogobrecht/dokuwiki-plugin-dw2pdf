@@ -74,11 +74,11 @@ class renderer_plugin_dw2pdf extends Doku_Renderer_xhtml {
 
             $step = $level - $this->lastheadlevel;
 
-            if ($step > 0) 
+            if ($step > 0)
             	$this->current_bookmark_level += 1;
             else if ($step <0)  {
             	$this->current_bookmark_level -= 1;
-                if ($this->current_bookmark_level < 0) 
+                if ($this->current_bookmark_level < 0)
                     $this->current_bookmark_level = 0;
             }
 
@@ -152,6 +152,12 @@ class renderer_plugin_dw2pdf extends Doku_Renderer_xhtml {
 
     function _formatLink($link){
 
+        // remove links to secured hosts
+        $pattern = $this->getConf('removelinkspattern');
+        if ($pattern != '' && preg_match('/'.$pattern.'/', $link['url']) ) {
+            return $link['name'] . $this->getConf('removelinkscomment');
+        }
+
         // for internal links contains the title the pageid
         if(in_array($link['title'], $this->actioninstance->getExportedPages())) {
             list(/* $url */, $hash) = explode('#', $link['url'], 2);
@@ -189,4 +195,3 @@ class renderer_plugin_dw2pdf extends Doku_Renderer_xhtml {
     }
 
 }
-
