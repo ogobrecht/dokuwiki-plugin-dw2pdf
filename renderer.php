@@ -152,12 +152,6 @@ class renderer_plugin_dw2pdf extends Doku_Renderer_xhtml {
 
     function _formatLink($link){
 
-        // remove links to secured hosts
-        $pattern = $this->getConf('removelinkspattern');
-        if ($pattern != '' && preg_match('/'.$pattern.'/', $link['url']) ) {
-            return $link['name'] . $this->getConf('removelinkscomment');
-        }
-
         // for internal links contains the title the pageid
         if(in_array($link['title'], $this->actioninstance->getExportedPages())) {
             list(/* $url */, $hash) = explode('#', $link['url'], 2);
@@ -165,6 +159,13 @@ class renderer_plugin_dw2pdf extends Doku_Renderer_xhtml {
             $check = false;
             $pid = sectionID($link['title'], $check);
             $link['url'] = "#" . $pid . '__' . $hash;
+        }
+        // remove links to secured hosts (only, if target page is not in the list of book pages)
+        else {
+          $pattern = $this->getConf('removelinkspattern');
+          if ($pattern != '' && preg_match($pattern, $link['url']) ) {
+              return $link['name'] . $this->getConf('removelinkscomment');
+          }
         }
 
 
